@@ -1,13 +1,12 @@
 from __future__ import print_function
-import keras
 import os
 import numpy as np
 import cv2
 import random
 import tensorflow as tf
-from keras.models import Sequential, model_from_json
+import keras
+from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2D
-from keras import backend
 
 from scipy import ndimage
 
@@ -47,7 +46,7 @@ image_rows = 28 ## non-hardcoded rows and column params
 image_cols = 28
 
 DATADIR = "model"
-CATEGORIES = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+CATEGORIES = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
 training_data = []
 
 # Reads training data
@@ -58,6 +57,8 @@ def create_data():
         
         for image in os.listdir(path):
             img_array = cv2.imread(os.path.join(path, image), cv2.IMREAD_GRAYSCALE)
+            if img_array is None:
+               continue
             new_array = cv2.resize(img_array, (image_rows, image_cols)) 
             new_array = shift_com(new_array)
             training_data.append([new_array, class_num])
@@ -113,7 +114,7 @@ model.add(Dropout(0.50))
 model.add(Dense(num_classes, activation='softmax')) ## softmax = generalization of logisitic function to multiple dimensions
 
 model.compile(loss=tf.keras.losses.categorical_crossentropy, 
-              optimizer=tf.keras.optimizers.Adadelta(), 
+              optimizer=tf.keras.optimizers.legacy.Adadelta(), 
               metrics=['accuracy'])
 
 model.fit(x_train, y_train, batch_size=batch_size,epochs=epochs, verbose=1, validation_data=(x_test, y_test))
