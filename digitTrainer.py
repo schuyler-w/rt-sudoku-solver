@@ -4,7 +4,6 @@ import numpy as np
 import cv2
 import random
 import tensorflow as tf
-import keras
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPooling2D
 
@@ -33,12 +32,11 @@ def shift_com(image):
     shiftx, shifty = get_center_shift(image)
     shifted = shift(image, shiftx, shifty)
     image = shifted
-    
     image = cv2.bitwise_not(image)
     return image
 
 batch_size = 128
-num_classes = 9
+num_classes = 10
 epochs = 35
 
 ## input image dimensions
@@ -46,7 +44,7 @@ image_rows = 28 ## non-hardcoded rows and column params
 image_cols = 28
 
 DATADIR = "model"
-CATEGORIES = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+CATEGORIES = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
 training_data = []
 
 # Reads training data
@@ -56,12 +54,10 @@ def create_data():
         class_num = CATEGORIES.index(category)
         
         for image in os.listdir(path):
-            img_array = cv2.imread(os.path.join(path, image), cv2.IMREAD_GRAYSCALE)
-            if img_array is None:
-               continue
-            new_array = cv2.resize(img_array, (image_rows, image_cols)) 
-            new_array = shift_com(new_array)
-            training_data.append([new_array, class_num])
+            img = cv2.imread(os.path.join(path, image), cv2.IMREAD_GRAYSCALE)
+            new_img = cv2.resize(img, (image_rows, image_cols)) 
+            new_img = shift_com(new_img)
+            training_data.append([new_img, class_num])
             
 create_data() ## runs function to create classification data
 
