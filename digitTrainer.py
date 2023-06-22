@@ -1,7 +1,5 @@
 from __future__ import print_function
-import os
 import numpy as np
-import cv2
 import random
 import tensorflow as tf
 from keras.models import Sequential
