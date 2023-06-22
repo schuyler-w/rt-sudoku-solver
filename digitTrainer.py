@@ -11,7 +11,7 @@ from scipy import ndimage
 
 ## helper function that returns an optimized theoretical shift 
 ## used to centralize an image according to center of mass
-def get_center_shift(image):
+def get_shift(image):
     cy, cx = ndimage.center_of_mass(image)
     rows, cols = image.shape
     shiftx = np.round(cols/2.0-cx).astype(int)
@@ -21,15 +21,15 @@ def get_center_shift(image):
 ## helper function for center of mass shift 
 def shift(image, sx, sy): ## params: (image, shiftx, shifty)
     rows, cols = image.shape ## get rows and columns from image
-    M = np.float32([[1, 0, sx], [0, 1, sy]]) ## convert to array scalar
-    shifted = cv2.warpAffine(image, M, (cols, rows))
+    S = np.float32([[1, 0, sx], [0, 1, sy]]) ## convert to array scalar
+    shifted = cv2.warpAffine(image, S, (cols, rows))
     return shifted
 
 ## function to shift according to center of mass
 def shift_com(image): 
     image = cv2.bitwise_not(image) ## convert image to using masking
     
-    shiftx, shifty = get_center_shift(image)
+    shiftx, shifty = get_shift(image)
     shifted = shift(image, shiftx, shifty)
     image = shifted
     image = cv2.bitwise_not(image)
@@ -110,7 +110,7 @@ model.add(Dropout(0.50))
 model.add(Dense(num_classes, activation='softmax')) ## softmax = generalization of logisitic function to multiple dimensions
 
 model.compile(loss=tf.keras.losses.categorical_crossentropy, 
-              optimizer=tf.keras.optimizers.legacy.Adadelta(), 
+              optimizer="Adam", 
               metrics=['accuracy'])
 
 model.fit(x_train, y_train, batch_size=batch_size,epochs=epochs, verbose=1, validation_data=(x_test, y_test))
