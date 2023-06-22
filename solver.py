@@ -44,7 +44,6 @@ def grid_values(grid):
 	assert len(chars) == 81
 	return dict(zip(squares, chars))
 
-
 def assign(values, s, d):
 	## Eliminate all the other values (except d) from values[s] and propagate.
 	## Return values, except return False if a contradiction is detected.
@@ -87,8 +86,6 @@ def display(values):
         if r in 'CF': print(line)
     print()
     
-    
-	
 def solve(grid): 
     return search(parse_grid(grid))
 
