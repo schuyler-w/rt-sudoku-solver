@@ -15,10 +15,10 @@ num_classes = 10
 epochs = 25
 
 ## input image dimensions
-image_rows = 28 ## non-hardcoded rows and column params
+image_rows = 28 ## hardcoded rows and column params
 image_cols = 28
             
-pp.create_data(CATEGORIES, DATADIR, image_rows, image_cols, training_data) ## runs function to create classification data
+pp.create(CATEGORIES, DATADIR, image_rows, image_cols, training_data) ## runs function to create classification data
 
 ## randomly mix up data
 random.shuffle(training_data)

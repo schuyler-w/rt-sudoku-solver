@@ -1,3 +1,5 @@
+## Package containing all preprocessing functions for optimizing images prior to training
+
 from __future__ import print_function
 import numpy as np
 import cv2
@@ -31,7 +33,7 @@ def shift_com(image):
     return image
 
 # Reads training data
-def create_data(CATEGORIES, DATADIR, rows, cols, data):
+def create(CATEGORIES, DATADIR, rows, cols, data):
     for category in CATEGORIES:
         path = os.path.join(DATADIR, category) ## joins path to find model directory
         class_num = CATEGORIES.index(category)

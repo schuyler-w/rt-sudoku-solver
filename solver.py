@@ -28,6 +28,9 @@ def test():
 							   'A1', 'A3', 'B1', 'B3'])
 	print('All tests pass.')
 	
+ 
+ ## Parse Grid ##
+ 
 def parse_grid(grid):
 	## Convert grid to a dict of possible values, {square: digits}, or
 	## return False if a contradiction is detected.
@@ -43,6 +46,8 @@ def grid_values(grid):
 	chars = [c for c in grid if c in digits or c in '0.']
 	assert len(chars) == 81
 	return dict(zip(squares, chars))
+
+## Constraint Propagation ##
 
 def assign(values, s, d):
 	## Eliminate all the other values (except d) from values[s] and propagate.
@@ -86,6 +91,8 @@ def display(values):
         if r in 'CF': print(line)
     print()
     
+## Search ##    
+    
 def solve(grid): 
     return search(parse_grid(grid))
 
@@ -99,6 +106,8 @@ def search(values):
     n,s = min((len(values[s]), s) for s in squares if len(values[s]) > 1)
     return some(search(assign(values.copy(), s, d)) 
 		for d in values[s])
+
+## Utilities ##
 
 def some(seq):
     ## Return some element of seq that is true.
