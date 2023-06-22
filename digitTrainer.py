@@ -12,7 +12,7 @@ training_data = []
 
 batch_size = 128
 num_classes = 10
-epochs = 35
+epochs = 25
 
 ## input image dimensions
 image_rows = 28 ## non-hardcoded rows and column params
