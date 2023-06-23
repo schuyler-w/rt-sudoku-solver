@@ -12,7 +12,7 @@ training_data = []
 
 batch_size = 128
 num_classes = 10
-epochs = 25
+epochs = 50
 
 ## input image dimensions
 image_rows = 28 ## hardcoded rows and column params
@@ -79,4 +79,4 @@ score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss: ', score[0])
 print('Test accuracy: ', score[1])
 
-model.save('modelData.h5')
+model.save('data.h5')
