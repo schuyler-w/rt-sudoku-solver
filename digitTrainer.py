@@ -79,4 +79,7 @@ score = model.evaluate(x_test, y_test, verbose=0)
 print('Test loss: ', score[0])
 print('Test accuracy: ', score[1])
 
+model_json = model.to_json()
+with open('data.json', 'w') as json_file:
+    json_file.write(model_json)
 model.save('data.h5')
