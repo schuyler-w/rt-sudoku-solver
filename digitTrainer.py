@@ -12,7 +12,7 @@ training_data = []
 
 batch_size = 128
 num_classes = 10
-epochs = 50
+epochs = 5
 
 ## input image dimensions
 image_rows = 28 ## hardcoded rows and column params
@@ -82,4 +82,7 @@ print('Test accuracy: ', score[1])
 model_json = model.to_json()
 with open('data.json', 'w') as json_file:
     json_file.write(model_json)
-model.save('data.h5')
+model.save('data.meta', 
+            overwrite=True,
+            include_optimizer=True,
+            save_format='tf')
