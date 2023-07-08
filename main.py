@@ -14,7 +14,7 @@ def main():
     valid_frame_count = 0
     digit_images = dict()
     digit_flags_history = list()
-    window_name = "AR Sudoku Solver"
+    window_name = "RT Sudoku Solver"
 
     while(cap.isOpened()):
         frame = cap.read()[1]

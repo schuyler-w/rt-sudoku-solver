@@ -5,11 +5,6 @@ import os
 
 class Processor:
     def __init__(self):
-        self.x = None
-        self.y = None
-        self.prob =  None
-        self.pred_label = None
-        self.session = None
         self.model = None
         self.load_model()
         
